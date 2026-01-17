@@ -9,10 +9,10 @@ jobs:
     timeout-minutes: 30
     
     strategy:
-      fail-fast: false # If one account fails, the others keep going
+      fail-fast: false
       matrix:
-        # Add the numbers corresponding to your secrets (TOKEN_1, TOKEN_2, etc.)
-        token_id: [1, 2, 3] 
+        # Now supporting 5 accounts
+        token_id: [1, 2, 3, 4, 5]
 
     steps:
       - name: Checkout repository
@@ -33,7 +33,6 @@ jobs:
 
       - name: Create .env from secret
         run: |
-          # This pulls the specific token (TOKEN_1, TOKEN_2) based on the matrix ID
           echo "TOKEN=${{ secrets[format('TOKEN_{0}', matrix.token_id)] }}" > .env
 
       - name: Run the bot
